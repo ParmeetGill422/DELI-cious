@@ -43,7 +43,7 @@ public class Order {
     }
 
     public void viewCart() {
-        System.out.println("\n🛒 Current Cart:");
+        System.out.println("\n🛒 Current Cart\n┄┄┄┄┄┄┄┄┄┄┄┄┄┄");
         if (cart.isEmpty()) {
             System.out.println("Your cart is empty.");
         } else {
@@ -70,7 +70,7 @@ public class Order {
             return;
         }
 
-        System.out.println("\n💳 Checkout:");
+        System.out.println("\n  💳 Checkout\n≿━━━━༺❀༻━━━━≾");
         double total = 0.0;
         for (Item item : cart) {
             System.out.println(item.getDescription());

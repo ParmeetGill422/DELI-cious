@@ -6,7 +6,7 @@ public class MainApp {
         Order order = new Order();
 
         while (true) {
-            System.out.println("=== Welcome to The Deli ===");
+            System.out.println("≻───── ⋆✦Welcome to The Deli✦⋆ ─────≺");
             System.out.println("1) New Order");
             System.out.println("2) Exit");
             System.out.print("Select option: ");
@@ -15,7 +15,7 @@ public class MainApp {
             if (input.equals("1")) {
                 handleOrder(scanner, order);
             } else if (input.equals("2")) {
-                System.out.println("Goodbye!");
+                System.out.println("Goodbye!\nDon’t let the door hit you on the way out.");
                 break;
             } else {
                 System.out.println("Invalid choice.");
@@ -27,7 +27,7 @@ public class MainApp {
 
     private static void handleOrder(Scanner scanner, Order order) {
         while (true) {
-            System.out.println("\n--- Order Menu ---");
+            System.out.println("\n--- Order Menu --- \n━◦○◦━◦○◦━◦○◦━◦○◦━");
             order.viewCart();
             System.out.println("1) Add Sandwich");
             System.out.println("2) Add Drink");
