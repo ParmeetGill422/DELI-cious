@@ -71,20 +71,32 @@ public class Sandwich implements Item {
     @Override
     public String getDescription() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Sandwich (").append(size).append("\" ").append(bread).append(")\n");
+        sb.append(size).append("\" ").append(bread).append("\n");
 
         List<String> allMeats = new ArrayList<>(meats);
         allMeats.addAll(extraMeats);
-        if (!allMeats.isEmpty()) sb.append("  Meats: ").append(String.join(", ", allMeats)).append("\n");
+        if (!allMeats.isEmpty()) sb.append("  Meats: ").append(ItemUtils.formatWithCounts(allMeats)).append("\n");
 
         List<String> allCheeses = new ArrayList<>(cheeses);
         allCheeses.addAll(extraCheeses);
-        if (!allCheeses.isEmpty()) sb.append("  Cheeses: ").append(String.join(", ", allCheeses)).append("\n");
+        if (!allCheeses.isEmpty()) sb.append("  Cheeses: ").append(ItemUtils.formatWithCounts(allCheeses)).append("\n");
 
-        if (!toppings.isEmpty()) sb.append("  Toppings: ").append(String.join(", ", toppings)).append("\n");
-        if (!sauces.isEmpty()) sb.append("  Sauces: ").append(String.join(", ", sauces)).append("\n");
+        if (!toppings.isEmpty()) sb.append("  Toppings: ").append(ItemUtils.formatWithCounts(toppings)).append("\n");
+
+        if (!sauces.isEmpty()) sb.append("  Sauces: ").append(ItemUtils.formatWithCounts(sauces)).append("\n");
+
         sb.append("  Toasted: ").append(toasted ? "Yes" : "No");
 
         return sb.toString();
+    }
+
+    public String getSummaryDescription() {
+        int totalMeats = meats.size() + extraMeats.size();
+        int totalCheeses = cheeses.size() + extraCheeses.size();
+        int totalToppings = toppings.size();
+        int totalSauces = sauces.size();
+
+        return String.format("%s\" %s - %d meats, %d cheeses, %d toppings, %d sauces",
+                size, bread, totalMeats, totalCheeses, totalToppings, totalSauces);
     }
 }

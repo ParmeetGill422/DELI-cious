@@ -26,26 +26,22 @@ public class SandwichBuilder {
         printOptions(meats);
         for (int index : getMultipleChoices(scanner)) {
             String meat = meats.get(index);
-            sandwich.addMeat(meat);
             if (askYesNo(scanner, "Add extra " + meat + "?")) {
                 sandwich.addExtraMeat(meat);
             } else {
                 sandwich.addMeat(meat);
             }
-
         }
 
         System.out.println("Choose cheeses (enter numbers separated by commas):");
         printOptions(cheeses);
         for (int index : getMultipleChoices(scanner)) {
             String cheese = cheeses.get(index);
-            sandwich.addCheese(cheese);
             if (askYesNo(scanner, "Add extra " + cheese + "?")) {
                 sandwich.addExtraCheese(cheese);
             } else {
-                sandwich.addMeat(cheese);
+                sandwich.addCheese(cheese);
             }
-
         }
 
         if (askYesNo(scanner, "Toasted?")) {

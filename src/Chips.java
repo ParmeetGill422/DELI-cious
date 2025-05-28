@@ -1,17 +1,20 @@
-public class Chips implements Item {
-    private String flavor;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Chips(String flavor) {
-        this.flavor = flavor;
+public class Chips implements Item {
+    private List<String> flavors = new ArrayList<>();
+
+    public void addFlavor(String flavor) {
+        flavors.add(flavor);
     }
 
     @Override
     public double getPrice() {
-        return 1.50;
+        return flavors.size() * 1.50;
     }
 
     @Override
     public String getDescription() {
-        return "Chips (" + flavor + ")";
+        return "Chips: " + ItemUtils.formatWithCounts(flavors);
     }
 }

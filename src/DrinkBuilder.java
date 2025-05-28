@@ -9,7 +9,9 @@ public class DrinkBuilder {
         String[] types = {"Coke", "Diet Coke", "Sprite", "Hansen’s Diet"};
         String type = askOption(scanner, "Choose drink type:", types);
 
-        return new Drink(size, type);
+        Drink drink = new Drink();
+        drink.addSize(size);
+        return drink;
     }
 
     private static String askOption(Scanner scanner, String prompt, String[] options) {

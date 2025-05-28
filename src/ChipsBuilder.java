@@ -21,7 +21,9 @@ public class ChipsBuilder {
             try {
                 int choice = Integer.parseInt(scanner.nextLine().trim());
                 if (choice >= 1 && choice <= flavors.length) {
-                    return new Chips(flavors[choice - 1]);
+                    Chips chips = new Chips();
+                    chips.addFlavor(flavors[choice - 1]);
+                    return chips;
                 }
             } catch (NumberFormatException ignored) {}
             System.out.println(" Invalid input. Try again.");

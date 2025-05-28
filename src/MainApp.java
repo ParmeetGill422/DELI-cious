@@ -6,70 +6,52 @@ public class MainApp {
         Order order = new Order();
 
         while (true) {
-            System.out.println("\n=== Welcome to DELI-cious ===");
+            System.out.println("=== Welcome to The Deli ===");
             System.out.println("1) New Order");
             System.out.println("2) Exit");
-            System.out.print("Select: ");
-            String choice = scanner.nextLine();
+            System.out.print("Select option: ");
+            String input = scanner.nextLine().trim();
 
-            if (choice.equals("1")) {
-                order.clear();
-                boolean ordering = true;
-
-                while (ordering) {
-                    order.printCartSummary();
-                    System.out.println("\n--- Order Menu ---");
-                    System.out.println("1) Add Sandwich");
-                    System.out.println("2) Add Drink");
-                    System.out.println("3) Add Chips");
-                    System.out.println("4) Signature Sandwiches");
-                    System.out.println("5) Add Sides");
-                    System.out.println("6) Checkout");
-                    System.out.println("7) Cancel Order");
-                    System.out.print("Select: ");
-                    String option = scanner.nextLine();
-
-                    switch (option) {
-                        case "1":
-                            order.addItem(SandwichBuilder.build(scanner));
-                            break;
-                        case "2":
-                            order.addItem(DrinkBuilder.build(scanner));
-                            break;
-                        case "3":
-                            order.addItem(ChipsBuilder.build(scanner));
-                            break;
-                        case "4":
-                            Sandwich signature = SignatureSandwichBuilder.build(scanner);
-                            if (signature != null) {
-                                order.addItem(signature);
-                            }
-                            break;
-                        case "5":
-                            order.addItem(SideBuilder.build(scanner));
-                            break;
-                        case "6":
-                            order.printFullCheckout();
-                            System.out.print("Confirm order? (y/n): ");
-                            if (scanner.nextLine().equalsIgnoreCase("y")) {
-                                order.saveReceipt();
-                                ordering = false;
-                            } else {
-                                order.clear();
-                                System.out.println("Order cancelled.");
-                            }
-                            break;
-                        case "7":
-                            order.clear();
-                            ordering = false;
-                            break;
-                        default:
-                            System.out.println("Invalid option. Try again.");
-                    }
-                }
-            } else if (choice.equals("2")) {
+            if (input.equals("1")) {
+                handleOrder(scanner, order);
+            } else if (input.equals("2")) {
                 System.out.println("Goodbye!");
                 break;
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void handleOrder(Scanner scanner, Order order) {
+        while (true) {
+            System.out.println("\n--- Order Menu ---");
+            order.viewCart();
+            System.out.println("1) Add Sandwich");
+            System.out.println("2) Add Drink");
+            System.out.println("3) Add Chips");
+            System.out.println("4) Add Sides");
+            System.out.println("5) Checkout");
+            System.out.println("6) Cancel Order");
+            System.out.print("Select option: ");
+            String input = scanner.nextLine().trim();
+
+            switch (input) {
+                case "1" -> order.addItem(SandwichBuilder.build(scanner));
+                case "2" -> order.addItem(DrinkBuilder.build(scanner));
+                case "3" -> order.addItem(ChipsBuilder.build(scanner));
+                case "4" -> order.addItem(SideBuilder.build(scanner));
+                case "5" -> {
+                    order.checkout();
+                    return;
+                }
+                case "6" -> {
+                    System.out.println("Order canceled.");
+                    return;
+                }
+                default -> System.out.println("Invalid selection.");
             }
         }
     }
