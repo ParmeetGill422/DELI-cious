@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class DrinkBuilder {
@@ -23,7 +22,7 @@ public class DrinkBuilder {
         int typeChoice = Integer.parseInt(scanner.nextLine().trim());
 
         if (sizeChoice >= 1 && sizeChoice <= sizes.length && typeChoice >= 1 && typeChoice <= types.length) {
-            String finalDrink = sizes[sizeChoice - 1] + " " + types[typeChoice - 1];
+            String finalDrink = (sizes[sizeChoice - 1] + " " + types[typeChoice - 1]).trim();
             drink.addDrink(finalDrink);
         } else {
             System.out.println("Invalid selection. Skipping drink.");
