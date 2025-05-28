@@ -37,7 +37,7 @@ public class SideBuilder {
                 return new Side("Au Jus");
             }
 
-            System.out.println("❌ Invalid input. Try again.");
+            System.out.println(" Invalid input. Try again.");
         }
     }
 }
