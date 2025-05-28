@@ -1,25 +1,43 @@
 import java.util.Scanner;
 
 public class SideBuilder {
-    public static Side build(Scanner scanner) {
-        String[] sides = {"Sauce", "Au-Jus"};
-        return new Side(askOption(scanner, "Choose a side (free):", sides));
-    }
 
-    private static String askOption(Scanner scanner, String prompt, String[] options) {
+    public static Side build(Scanner scanner) {
+        System.out.println("\n Choose a side:");
+        System.out.println("  1) Sauce");
+        System.out.println("  2) Au Jus");
+
         while (true) {
-            System.out.println(prompt);
-            for (int i = 0; i < options.length; i++) {
-                System.out.println((i + 1) + ") " + options[i]);
-            }
             System.out.print("Select: ");
-            try {
-                int choice = Integer.parseInt(scanner.nextLine());
-                if (choice >= 1 && choice <= options.length) {
-                    return options[choice - 1];
+            String input = scanner.nextLine().trim();
+
+            if (input.equals("1")) {
+                String[] sauces = {
+                        "Mayo", "Mustard", "Ketchup",
+                        "Ranch", "Thousand Island", "Vinaigrette"
+                };
+
+                System.out.println("\n Choose a sauce flavor:");
+                for (int i = 0; i < sauces.length; i++) {
+                    System.out.printf("  %d) %s%n", i + 1, sauces[i]);
                 }
-            } catch (NumberFormatException ignored) {}
-            System.out.println("Invalid choice. Try again.");
+
+                while (true) {
+                    System.out.print("Select: ");
+                    try {
+                        int choice = Integer.parseInt(scanner.nextLine().trim());
+                        if (choice >= 1 && choice <= sauces.length) {
+                            return new Side("Sauce (" + sauces[choice - 1] + ")");
+                        }
+                    } catch (NumberFormatException ignored) {}
+                    System.out.println(" Invalid input. Try again.");
+                }
+
+            } else if (input.equals("2")) {
+                return new Side("Au Jus");
+            }
+
+            System.out.println("❌ Invalid input. Try again.");
         }
     }
 }
