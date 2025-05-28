@@ -6,7 +6,11 @@ public class MainApp {
         Order order = new Order();
 
         while (true) {
-            System.out.println("≻───── ⋆✦Welcome to The Deli✦⋆ ─────≺");
+            System.out.println("*✲*´*。.❄¯*✲。❄。*¨`*✲´*  。*´✲*`¨*。❄。✲*¯❄.。*´*✲*\n" +
+                    "    *╔════════════ ༺❀༻༺❀༻ ════════════╗*\n" +
+                    "               WELCOME TO THE DELI\n" +
+                    "    *╚════════════ ༺❀༻༺❀༻ ════════════╝*\n" +
+                    "*✲*´*。.❄¯*✲。❄。*¨`*✲´*  。*´✲*`¨*。❄。✲*¯❄.。*´*✲*");
             System.out.println("1) New Order");
             System.out.println("2) Exit");
             System.out.print("Select option: ");
@@ -18,7 +22,7 @@ public class MainApp {
                 System.out.println("Goodbye!\nDon’t let the door hit you on the way out.");
                 break;
             } else {
-                System.out.println("Invalid choice.");
+                System.out.println("Invalid choice.");//Welcome to The Deli
             }
         }
 
@@ -29,7 +33,7 @@ public class MainApp {
         while (true) {
             System.out.println("\n--- Order Menu --- \n━◦○◦━◦○◦━◦○◦━◦○◦━");
             order.viewCart();
-            System.out.println("╔══════════╗");
+            System.out.println("╔════════════════╗");
             System.out.println("1) Add Sandwich");
             System.out.println("2) Add Drink");
             System.out.println("3) Add Chips");
@@ -37,7 +41,7 @@ public class MainApp {
             System.out.println("5) Add Signature Sandwich");
             System.out.println("6) Checkout");
             System.out.println("7) Cancel Order");
-            System.out.println("╚══════════╝");
+            System.out.println("╚════════════════╝");
             System.out.print("Select option: ");
             String input = scanner.nextLine().trim();
 
