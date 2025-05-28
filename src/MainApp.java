@@ -33,8 +33,9 @@ public class MainApp {
             System.out.println("2) Add Drink");
             System.out.println("3) Add Chips");
             System.out.println("4) Add Sides");
-            System.out.println("5) Checkout");
-            System.out.println("6) Cancel Order");
+            System.out.println("5) Add Signature Sandwich");
+            System.out.println("6) Checkout");
+            System.out.println("7) Cancel Order");
             System.out.print("Select option: ");
             String input = scanner.nextLine().trim();
 
@@ -43,11 +44,12 @@ public class MainApp {
                 case "2" -> order.addItem(DrinkBuilder.build(scanner));
                 case "3" -> order.addItem(ChipsBuilder.build(scanner));
                 case "4" -> order.addItem(SideBuilder.build(scanner));
-                case "5" -> {
+                case "5" -> order.addItem(SignatureSandwichBuilder.build(scanner));
+                case "6" -> {
                     order.checkout();
                     return;
                 }
-                case "6" -> {
+                case "7" -> {
                     System.out.println("Order canceled.");
                     return;
                 }
