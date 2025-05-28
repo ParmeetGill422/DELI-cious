@@ -82,10 +82,10 @@ public class Order {
         System.out.print("Confirm order? (y/n): ");
         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
             saveReceipt();
-            System.out.println("✅ Order confirmed! Receipt saved.");
+            System.out.println("✅ Order Confirmed. Receipt saved. No backing out now");
             cart.clear();
         } else {
-            System.out.println("❌ Order cancelled.");
+            System.out.println("❌ Order cancelled.Go waste someone else’s time.");
         }
     }
 

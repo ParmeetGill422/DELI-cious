@@ -50,7 +50,7 @@ public class MainApp {
                     return;
                 }
                 case "7" -> {
-                    System.out.println("Order canceled.");
+                    System.out.println("Thank you for canceling — now we can focus on real customers.");
                     return;
                 }
                 default -> System.out.println("Invalid selection.");
