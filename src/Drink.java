@@ -25,4 +25,8 @@ public class Drink implements Item {
     public String getDescription() {
         return "Drinks: " + ItemUtils.formatWithCounts(sizes);
     }
+
+    public String getSummaryDescription() {
+        return "Drinks: " + ItemUtils.formatWithCounts(sizes);
+    }
 }

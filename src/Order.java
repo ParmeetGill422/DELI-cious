@@ -18,8 +18,14 @@ public class Order {
             System.out.println("Your cart is empty.");
         } else {
             for (Item item : cart) {
-                if (item instanceof Sandwich) {
-                    System.out.println(((Sandwich) item).getSummaryDescription());
+                if (item instanceof Sandwich sandwich) {
+                    System.out.println(sandwich.getSummaryDescription());
+                } else if (item instanceof Drink drink) {
+                    System.out.println(drink.getSummaryDescription());
+                } else if (item instanceof Chips chips) {
+                    System.out.println(chips.getSummaryDescription());
+                } else if (item instanceof Side sides) {
+                    System.out.println(sides.getSummaryDescription());
                 } else {
                     System.out.println(item.getDescription());
                 }
@@ -46,10 +52,10 @@ public class Order {
         System.out.print("Confirm order? (y/n): ");
         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
             saveReceipt();
-            System.out.println("Order confirmed! Receipt saved.");
+            System.out.println("✅ Order confirmed! Receipt saved.");
             cart.clear();
         } else {
-            System.out.println(" Order cancelled.");
+            System.out.println("❌ Order cancelled.");
         }
     }
 

@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +11,15 @@ public class Side implements Item {
 
     @Override
     public double getPrice() {
-        return 0;
+        return 0; // sides are free
     }
 
     @Override
     public String getDescription() {
+        return "Sides: " + ItemUtils.formatWithCounts(sideItems);
+    }
+
+    public String getSummaryDescription() {
         return "Sides: " + ItemUtils.formatWithCounts(sideItems);
     }
 }

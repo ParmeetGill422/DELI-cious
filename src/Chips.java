@@ -17,4 +17,8 @@ public class Chips implements Item {
     public String getDescription() {
         return "Chips: " + ItemUtils.formatWithCounts(flavors);
     }
+
+    public String getSummaryDescription() {
+        return "Chips: " + ItemUtils.formatWithCounts(flavors);
+    }
 }
