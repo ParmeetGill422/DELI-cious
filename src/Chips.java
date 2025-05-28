@@ -1,6 +1,8 @@
-public class Chips extends MenuItem {
-    public Chips(String type) {
-        super("Chips: " + type);
+public class Chips implements Item {
+    private String flavor;
+
+    public Chips(String flavor) {
+        this.flavor = flavor;
     }
 
     @Override
@@ -10,6 +12,6 @@ public class Chips extends MenuItem {
 
     @Override
     public String getDescription() {
-        return super.getDescription();
+        return "Chips (" + flavor + ")";
     }
 }

@@ -1,79 +1,53 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class SandwichBuilder {
-    private static final String[] breadTypes = {"White", "Wheat", "Rye", "Wrap"};
-    private static final String[] meatOptions = {"Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"};
-    private static final String[] cheeseOptions = {"American", "Cheddar", "Provolone", "Swiss"};
-    private static final String[] toppingOptions = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños", "Cucumbers", "Pickles", "Guacamole", "Mushrooms"};
-    private static final String[] sauceOptions = {"Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette"};
 
     public static Sandwich build(Scanner scanner) {
-        System.out.println("=== Build Your Sandwich ===");
+        String size = askOption(scanner, "Choose sandwich size:",
+                new String[]{"4", "8", "12"});
 
-        // Ask for size first
-        String[] sizes = {"4\" ($5.50)", "8\" ($7.00)", "12\" ($8.50)"};
-        String sizeInput = askOption(scanner, "Choose sandwich size:", sizes);
-        String size = sizeInput.split("\"")[0];
+        String bread = askOption(scanner, "Choose bread type:",
+                new String[]{"White", "Wheat", "Rye", "Wrap"});
 
-        Sandwich sandwich = new Sandwich(size, "");
+        Sandwich sandwich = new Sandwich(size, bread);
 
-        boolean done = false;
-        while (!done) {
-            System.out.println("\n=== Sandwich Menu ===");
-            System.out.println("1) Bread");
-            System.out.println("2) Meat");
-            System.out.println("3) Cheese");
-            System.out.println("4) Toast");
-            System.out.println("5) Toppings");
-            System.out.println("6) Sauce");
-            System.out.println("7) Done (Back to Order Menu)");
-            System.out.print("Select: ");
-            String choice = scanner.nextLine();
+        // Meat
+        String[] meats = {"Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"};
+        boolean addMore = true;
+        while (addMore) {
+            String meat = askOption(scanner, "Choose meat:", meats);
+            sandwich.addMeat(meat);
+            addMore = askYesNo(scanner, "Add extra meat?");
+            if (addMore) sandwich.addExtraMeat();
+            addMore = askYesNo(scanner, "Add another meat?");
+        }
 
-            switch (choice) {
-                case "1": // Bread
-                    sandwich = new Sandwich(size, askOption(scanner, "Choose bread type:", breadTypes));
-                    break;
-                case "2": // Meat
-                    do {
-                        sandwich.addMeat(askOption(scanner, "Add meat:", meatOptions));
-                        System.out.print("Add extra meat? (y/n): ");
-                        if (scanner.nextLine().equalsIgnoreCase("y")) {
-                            sandwich.addExtraMeat();
-                        } else break;
-                    } while (true);
-                    break;
-                case "3": // Cheese
-                    do {
-                        sandwich.addCheese(askOption(scanner, "Add cheese:", cheeseOptions));
-                        System.out.print("Add extra cheese? (y/n): ");
-                        if (scanner.nextLine().equalsIgnoreCase("y")) {
-                            sandwich.addExtraCheese();
-                        } else break;
-                    } while (true);
-                    break;
-                case "4": // Toast
-                    System.out.print("Toasted? (y/n): ");
-                    sandwich.setToasted(scanner.nextLine().equalsIgnoreCase("y"));
-                    break;
-                case "5": // Toppings
-                    do {
-                        sandwich.addTopping(askOption(scanner, "Add topping:", toppingOptions));
-                        System.out.print("Add another topping? (y/n): ");
-                    } while (scanner.nextLine().equalsIgnoreCase("y"));
-                    break;
-                case "6": // Sauce
-                    do {
-                        sandwich.addSauce(askOption(scanner, "Add sauce:", sauceOptions));
-                        System.out.print("Add another sauce? (y/n): ");
-                    } while (scanner.nextLine().equalsIgnoreCase("y"));
-                    break;
-                case "7":
-                    done = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
-            }
+        // Cheese
+        String[] cheeses = {"American", "Cheddar", "Provolone", "Swiss"};
+        addMore = true;
+        while (addMore) {
+            String cheese = askOption(scanner, "Choose cheese:", cheeses);
+            sandwich.addCheese(cheese);
+            addMore = askYesNo(scanner, "Add extra cheese?");
+            if (addMore) sandwich.addExtraCheese();
+            addMore = askYesNo(scanner, "Add another cheese?");
+        }
+
+        // Toast
+        sandwich.setToasted(askYesNo(scanner, "Do you want the sandwich toasted?"));
+
+        // Toppings (multi-choice)
+        String[] toppings = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños", "Cucumbers", "Pickles", "Guacamole", "Mushrooms"};
+        String[] selectedToppings = askMultiOptions(scanner, "Choose toppings (e.g. 1,3,5):", toppings);
+        for (String topping : selectedToppings) {
+            sandwich.addTopping(topping);
+        }
+
+        // Sauces (multi-choice)
+        String[] sauces = {"Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette"};
+        String[] selectedSauces = askMultiOptions(scanner, "Choose sauces (e.g. 1,2,4):", sauces);
+        for (String sauce : selectedSauces) {
+            sandwich.addSauce(sauce);
         }
 
         return sandwich;
@@ -83,7 +57,7 @@ public class SandwichBuilder {
         while (true) {
             System.out.println(prompt);
             for (int i = 0; i < options.length; i++) {
-                System.out.println((i + 1) + ") " + options[i]);
+                System.out.printf("%d) %s%n", i + 1, options[i]);
             }
             System.out.print("Select: ");
             try {
@@ -93,6 +67,38 @@ public class SandwichBuilder {
                 }
             } catch (NumberFormatException ignored) {}
             System.out.println("Invalid choice. Try again.");
+        }
+    }
+
+    private static boolean askYesNo(Scanner scanner, String prompt) {
+        System.out.print(prompt + " (y/n): ");
+        String input = scanner.nextLine().trim().toLowerCase();
+        return input.equals("y");
+    }
+
+    private static String[] askMultiOptions(Scanner scanner, String prompt, String[] options) {
+        while (true) {
+            System.out.println(prompt);
+            for (int i = 0; i < options.length; i++) {
+                System.out.printf("%d) %s%n", i + 1, options[i]);
+            }
+            System.out.print("Enter choices separated by commas: ");
+            String input = scanner.nextLine();
+            String[] indices = input.split(",");
+            try {
+                String[] results = new String[indices.length];
+                for (int i = 0; i < indices.length; i++) {
+                    int index = Integer.parseInt(indices[i].trim());
+                    if (index >= 1 && index <= options.length) {
+                        results[i] = options[index - 1];
+                    } else {
+                        throw new NumberFormatException();
+                    }
+                }
+                return results;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Try again.");
+            }
         }
     }
 }
