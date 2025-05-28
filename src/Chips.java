@@ -19,10 +19,10 @@ public class Chips implements Item {
 
     @Override
     public String getDescription() {
-        return "Chips: " + ItemUtils.formatWithCounts(flavors);
+        return "\uD83C\uDF5FChips: " + ItemUtils.formatWithCounts(flavors);
     }
 
     public String getSummaryDescription() {
-        return "Chips: " + ItemUtils.formatWithCounts(flavors);
+        return "\uD83C\uDF5FChips: " + ItemUtils.formatWithCounts(flavors);
     }
 }

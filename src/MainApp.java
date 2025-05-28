@@ -6,13 +6,13 @@ public class MainApp {
         Order order = new Order();
 
         while (true) {
-            System.out.println("*✲*´*。.❄¯*✲。❄。*¨`*✲´*  。*´✲*`¨*。❄。✲*¯❄.。*´*✲*\n" +
+            System.out.println("\n*✲*´*。.❄¯*✲。❄。*¨`*✲´*  。*´✲*`¨*。❄。✲*¯❄.。*´*✲*\n" +
                     "    *╔════════════ ༺❀༻༺❀༻ ════════════╗*\n" +
                     "               WELCOME TO THE DELI\n" +
                     "    *╚════════════ ༺❀༻༺❀༻ ════════════╝*\n" +
                     "*✲*´*。.❄¯*✲。❄。*¨`*✲´*  。*´✲*`¨*。❄。✲*¯❄.。*´*✲*");
-            System.out.println("1) New Order");
-            System.out.println("2) Exit");
+            System.out.println("1)\uD83D\uDCF2 New Order");
+            System.out.println("2)\uD83D\uDC4B Exit");
             System.out.print("Select option: ");
             String input = scanner.nextLine().trim();
 
@@ -22,7 +22,7 @@ public class MainApp {
                 System.out.println("Goodbye!\nDon’t let the door hit you on the way out.");
                 break;
             } else {
-                System.out.println("Invalid choice.");//Welcome to The Deli
+                System.out.println("Invalid choice.");
             }
         }
 
@@ -34,12 +34,12 @@ public class MainApp {
             System.out.println("\n--- Order Menu --- \n━◦○◦━◦○◦━◦○◦━◦○◦━");
             order.viewCart();
             System.out.println("╔════════════════╗");
-            System.out.println("1) Add Sandwich");
-            System.out.println("2) Add Drink");
-            System.out.println("3) Add Chips");
-            System.out.println("4) Add Sides");
-            System.out.println("5) Add Signature Sandwich");
-            System.out.println("6) Checkout");
+            System.out.println("1) Add Sandwich\uD83E\uDD6A");
+            System.out.println("2) Add Drink\uD83E\uDD64");
+            System.out.println("3) Add Chips\uD83C\uDF5F");
+            System.out.println("4) Add Sides\uD83C\uDF6F");
+            System.out.println("5) Add Signature Sandwich\uD83E\uDD6A");
+            System.out.println("6) Checkout\uD83D\uDECD\uFE0F");
             System.out.println("7) Cancel Order");
             System.out.println("╚════════════════╝");
             System.out.print("Select option: ");

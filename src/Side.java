@@ -19,10 +19,10 @@ public class Side implements Item {
 
     @Override
     public String getDescription() {
-        return "Sides: " + ItemUtils.formatWithCounts(sideItems);
+        return "\uD83C\uDF6FSides: " + ItemUtils.formatWithCounts(sideItems);
     }
 
     public String getSummaryDescription() {
-        return "Sides: " + ItemUtils.formatWithCounts(sideItems);
+        return "\uD83C\uDF6FSides: " + ItemUtils.formatWithCounts(sideItems);
     }
 }

@@ -25,10 +25,10 @@ public class Drink implements Item {
 
     @Override
     public String getDescription() {
-        return "Drinks: " + ItemUtils.formatWithCounts(drinks);
+        return "\uD83E\uDD64Drinks: " + ItemUtils.formatWithCounts(drinks);
     }
 
     public String getSummaryDescription() {
-        return "Drinks: " + ItemUtils.formatWithCounts(drinks);
+        return "\uD83E\uDD64Drinks: " + ItemUtils.formatWithCounts(drinks);
     }
 }

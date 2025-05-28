@@ -78,11 +78,11 @@ public class Order {
             total += item.getPrice();
         }
 
-        System.out.printf("Total: $%.2f%n", total);
+        System.out.printf("Total:\uD83D\uDCB5 $%.2f%n", total);
         System.out.print("Confirm order? (y/n): ");
         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
             saveReceipt();
-            System.out.println("✅ Order Confirmed. Receipt saved. No backing out now");
+            System.out.println("✅ Order Confirmed. \uD83E\uDDFEReceipt saved. No backing out now");
             cart.clear();
         } else {
             System.out.println("❌ Order cancelled.Go waste someone else’s time.");

@@ -71,7 +71,7 @@ public class Sandwich implements Item {
     @Override
     public String getDescription() {
         StringBuilder sb = new StringBuilder();
-        sb.append(size).append("\" ").append(bread).append("\n");
+        sb.append(size).append("\uD83E\uDD6A\" ").append(bread).append("\n");
 
         List<String> allMeats = new ArrayList<>(meats);
         allMeats.addAll(extraMeats);
@@ -96,7 +96,7 @@ public class Sandwich implements Item {
         int totalToppings = toppings.size();
         int totalSauces = sauces.size();
 
-        return String.format("%s\" %s - %d meats, %d cheeses, %d toppings, %d sauces",
+        return String.format("\uD83E\uDD6A%s\" %s - %d meats, %d cheeses, %d toppings, %d sauces",
                 size, bread, totalMeats, totalCheeses, totalToppings, totalSauces);
     }
 }
