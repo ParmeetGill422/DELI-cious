@@ -1,51 +1,90 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sandwich implements Item {
     private String size;
-    private String breadType;
+    private String bread;
     private List<String> meats = new ArrayList<>();
-    private int extraMeat = 0;
     private List<String> cheeses = new ArrayList<>();
-    private int extraCheese = 0;
     private List<String> toppings = new ArrayList<>();
     private List<String> sauces = new ArrayList<>();
-    private boolean toasted;
+    private boolean toasted = false;
+    private List<String> extraMeats = new ArrayList<>();
+    private List<String> extraCheeses = new ArrayList<>();
 
-    public Sandwich(String size, String breadType) {
+    public Sandwich(String size, String bread) {
         this.size = size;
-        this.breadType = breadType;
+        this.bread = bread;
     }
 
-    public void addMeat(String meat) { meats.add(meat); }
-    public void addExtraMeat() { extraMeat++; }
-    public void addCheese(String cheese) { cheeses.add(cheese); }
-    public void addExtraCheese() { extraCheese++; }
-    public void addTopping(String topping) { toppings.add(topping); }
-    public void addSauce(String sauce) { sauces.add(sauce); }
-    public void setToasted(boolean toasted) { this.toasted = toasted; }
+    public void addMeat(String meat) {
+        meats.add(meat);
+    }
 
-    private double getRate(String size, double s, double m, double l) {
-        switch (size) {
-            case "4": return s;
-            case "8": return m;
-            case "12": return l;
-            default: return 0;
-        }
+    public void addExtraMeat(String meat) {
+        extraMeats.add(meat + " (extra)");
+    }
+
+    public void addCheese(String cheese) {
+        cheeses.add(cheese);
+    }
+
+    public void addExtraCheese(String cheese) {
+        extraCheeses.add(cheese + " (extra)");
+    }
+
+    public void addTopping(String topping) {
+        toppings.add(topping);
+    }
+
+    public void addSauce(String sauce) {
+        sauces.add(sauce);
+    }
+
+    public void setToasted(boolean toasted) {
+        this.toasted = toasted;
     }
 
     @Override
     public double getPrice() {
-        double base = getRate(size, 5.50, 7.00, 8.50);
-        double meatCost = meats.size() * getRate(size, 1.00, 2.00, 3.00) +
-                extraMeat * getRate(size, 0.50, 1.00, 1.50);
-        double cheeseCost = cheeses.size() * getRate(size, 0.75, 1.50, 2.25) +
-                extraCheese * getRate(size, 0.30, 0.60, 0.90);
-        return Math.round((base + meatCost + cheeseCost) * 100.0) / 100.0;
+        double base = switch (size) {
+            case "4" -> 5.50;
+            case "8" -> 7.00;
+            case "12" -> 8.50;
+            default -> 0;
+        };
+        double meatPrice = switch (size) {
+            case "4" -> meats.size() * 1.00 + extraMeats.size() * 0.50;
+            case "8" -> meats.size() * 2.00 + extraMeats.size() * 1.00;
+            case "12" -> meats.size() * 3.00 + extraMeats.size() * 1.50;
+            default -> 0;
+        };
+        double cheesePrice = switch (size) {
+            case "4" -> cheeses.size() * 0.75 + extraCheeses.size() * 0.30;
+            case "8" -> cheeses.size() * 1.50 + extraCheeses.size() * 0.60;
+            case "12" -> cheeses.size() * 2.25 + extraCheeses.size() * 0.90;
+            default -> 0;
+        };
+        return base + meatPrice + cheesePrice;
     }
 
     @Override
     public String getDescription() {
-        return size + "\" " + breadType + " Sandwich (" + meats.size() + " meats, " +
-                cheeses.size() + " cheese" + (toasted ? ", toasted" : "") + ")";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sandwich (").append(size).append("\" ").append(bread).append(")\n");
+
+        List<String> allMeats = new ArrayList<>(meats);
+        allMeats.addAll(extraMeats);
+        if (!allMeats.isEmpty()) sb.append("  Meats: ").append(String.join(", ", allMeats)).append("\n");
+
+        List<String> allCheeses = new ArrayList<>(cheeses);
+        allCheeses.addAll(extraCheeses);
+        if (!allCheeses.isEmpty()) sb.append("  Cheeses: ").append(String.join(", ", allCheeses)).append("\n");
+
+        if (!toppings.isEmpty()) sb.append("  Toppings: ").append(String.join(", ", toppings)).append("\n");
+        if (!sauces.isEmpty()) sb.append("  Sauces: ").append(String.join(", ", sauces)).append("\n");
+        sb.append("  Toasted: ").append(toasted ? "Yes" : "No");
+
+        return sb.toString();
     }
 }

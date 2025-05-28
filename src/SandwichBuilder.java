@@ -1,104 +1,105 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class SandwichBuilder {
 
     public static Sandwich build(Scanner scanner) {
-        String size = askOption(scanner, "Choose sandwich size:",
-                new String[]{"4", "8", "12"});
+        List<String> sizes = Arrays.asList("4", "8", "12");
+        List<String> breads = Arrays.asList("White", "Wheat", "Rye", "Wrap");
+        List<String> meats = Arrays.asList("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon");
+        List<String> cheeses = Arrays.asList("American", "Cheddar", "Provolone", "Swiss");
+        List<String> toppings = Arrays.asList("Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños", "Cucumbers", "Pickles", "Guacamole", "Mushrooms");
+        List<String> sauces = Arrays.asList("Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette");
 
-        String bread = askOption(scanner, "Choose bread type:",
-                new String[]{"White", "Wheat", "Rye", "Wrap"});
+        System.out.println("Choose sandwich size:");
+        printOptions(sizes);
+        String size = sizes.get(getUserChoice(scanner, sizes.size()));
+
+        System.out.println("Choose bread type:");
+        printOptions(breads);
+        String bread = breads.get(getUserChoice(scanner, breads.size()));
 
         Sandwich sandwich = new Sandwich(size, bread);
 
-        // Meat
-        String[] meats = {"Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"};
-        boolean addMore = true;
-        while (addMore) {
-            String meat = askOption(scanner, "Choose meat:", meats);
+        System.out.println("Choose meats (enter numbers separated by commas):");
+        printOptions(meats);
+        for (int index : getMultipleChoices(scanner)) {
+            String meat = meats.get(index);
             sandwich.addMeat(meat);
-            addMore = askYesNo(scanner, "Add extra meat?");
-            if (addMore) sandwich.addExtraMeat();
-            addMore = askYesNo(scanner, "Add another meat?");
+            if (askYesNo(scanner, "Add extra " + meat + "?")) {
+                sandwich.addExtraMeat(meat);
+            } else {
+                sandwich.addMeat(meat);
+            }
+
         }
 
-        // Cheese
-        String[] cheeses = {"American", "Cheddar", "Provolone", "Swiss"};
-        addMore = true;
-        while (addMore) {
-            String cheese = askOption(scanner, "Choose cheese:", cheeses);
+        System.out.println("Choose cheeses (enter numbers separated by commas):");
+        printOptions(cheeses);
+        for (int index : getMultipleChoices(scanner)) {
+            String cheese = cheeses.get(index);
             sandwich.addCheese(cheese);
-            addMore = askYesNo(scanner, "Add extra cheese?");
-            if (addMore) sandwich.addExtraCheese();
-            addMore = askYesNo(scanner, "Add another cheese?");
+            if (askYesNo(scanner, "Add extra " + cheese + "?")) {
+                sandwich.addExtraCheese(cheese);
+            } else {
+                sandwich.addMeat(cheese);
+            }
+
         }
 
-        // Toast
-        sandwich.setToasted(askYesNo(scanner, "Do you want the sandwich toasted?"));
-
-        // Toppings (multi-choice)
-        String[] toppings = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños", "Cucumbers", "Pickles", "Guacamole", "Mushrooms"};
-        String[] selectedToppings = askMultiOptions(scanner, "Choose toppings (e.g. 1,3,5):", toppings);
-        for (String topping : selectedToppings) {
-            sandwich.addTopping(topping);
+        if (askYesNo(scanner, "Toasted?")) {
+            sandwich.setToasted(true);
         }
 
-        // Sauces (multi-choice)
-        String[] sauces = {"Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette"};
-        String[] selectedSauces = askMultiOptions(scanner, "Choose sauces (e.g. 1,2,4):", sauces);
-        for (String sauce : selectedSauces) {
-            sandwich.addSauce(sauce);
+        System.out.println("Choose toppings (enter numbers separated by commas):");
+        printOptions(toppings);
+        for (int index : getMultipleChoices(scanner)) {
+            sandwich.addTopping(toppings.get(index));
+        }
+
+        System.out.println("Choose sauces (enter numbers separated by commas):");
+        printOptions(sauces);
+        for (int index : getMultipleChoices(scanner)) {
+            sandwich.addSauce(sauces.get(index));
         }
 
         return sandwich;
     }
 
-    private static String askOption(Scanner scanner, String prompt, String[] options) {
-        while (true) {
-            System.out.println(prompt);
-            for (int i = 0; i < options.length; i++) {
-                System.out.printf("%d) %s%n", i + 1, options[i]);
-            }
-            System.out.print("Select: ");
-            try {
-                int choice = Integer.parseInt(scanner.nextLine());
-                if (choice >= 1 && choice <= options.length) {
-                    return options[choice - 1];
-                }
-            } catch (NumberFormatException ignored) {}
-            System.out.println("Invalid choice. Try again.");
+    private static void printOptions(List<String> options) {
+        for (int i = 0; i < options.size(); i++) {
+            System.out.printf("  %d) %s%n", i + 1, options.get(i));
         }
     }
 
-    private static boolean askYesNo(Scanner scanner, String prompt) {
-        System.out.print(prompt + " (y/n): ");
+    private static int getUserChoice(Scanner scanner, int max) {
+        while (true) {
+            try {
+                int choice = Integer.parseInt(scanner.nextLine().trim()) - 1;
+                if (choice >= 0 && choice < max) return choice;
+            } catch (NumberFormatException ignored) {}
+            System.out.print("Invalid. Try again: ");
+        }
+    }
+
+    private static List<Integer> getMultipleChoices(Scanner scanner) {
+        while (true) {
+            try {
+                String input = scanner.nextLine().trim();
+                return Arrays.stream(input.split(","))
+                        .map(s -> Integer.parseInt(s.trim()) - 1)
+                        .filter(i -> i >= 0)
+                        .toList();
+            } catch (Exception e) {
+                System.out.print("Invalid input. Try again (e.g., 1,3,5): ");
+            }
+        }
+    }
+
+    private static boolean askYesNo(Scanner scanner, String message) {
+        System.out.print(message + " (y/n): ");
         String input = scanner.nextLine().trim().toLowerCase();
         return input.equals("y");
-    }
-
-    private static String[] askMultiOptions(Scanner scanner, String prompt, String[] options) {
-        while (true) {
-            System.out.println(prompt);
-            for (int i = 0; i < options.length; i++) {
-                System.out.printf("%d) %s%n", i + 1, options[i]);
-            }
-            System.out.print("Enter choices separated by commas: ");
-            String input = scanner.nextLine();
-            String[] indices = input.split(",");
-            try {
-                String[] results = new String[indices.length];
-                for (int i = 0; i < indices.length; i++) {
-                    int index = Integer.parseInt(indices[i].trim());
-                    if (index >= 1 && index <= options.length) {
-                        results[i] = options[index - 1];
-                    } else {
-                        throw new NumberFormatException();
-                    }
-                }
-                return results;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Try again.");
-            }
-        }
     }
 }
