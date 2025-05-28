@@ -5,7 +5,11 @@ public class Chips implements Item {
     private List<String> flavors = new ArrayList<>();
 
     public void addFlavor(String flavor) {
-        flavors.add(flavor);
+        flavors.add(flavor.trim());
+    }
+
+    public List<String> getFlavors() {
+        return flavors;
     }
 
     @Override

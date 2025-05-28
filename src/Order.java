@@ -9,7 +9,37 @@ public class Order {
     private final Scanner scanner = new Scanner(System.in);
 
     public void addItem(Item item) {
-        cart.add(0, item); // newest item first
+        if (item instanceof Drink newDrink) {
+            for (Item existing : cart) {
+                if (existing instanceof Drink existingDrink) {
+                    for (String d : newDrink.getDrinks()) {
+                        existingDrink.addDrink(d);
+                    }
+                    return;
+                }
+            }
+        } else if (item instanceof Chips newChips) {
+            for (Item existing : cart) {
+                if (existing instanceof Chips existingChips) {
+                    for (String f : newChips.getFlavors()) {
+                        existingChips.addFlavor(f);
+                    }
+                    return;
+                }
+            }
+        } else if (item instanceof Side newSides) {
+            for (Item existing : cart) {
+                if (existing instanceof Side existingSides) {
+                    for (String s : newSides.getSideItems()) {
+                        existingSides.addSide(s);
+                    }
+                    return;
+                }
+            }
+        }
+
+        // Sandwiches and anything else
+        cart.add(0, item);
     }
 
     public void viewCart() {
@@ -44,7 +74,7 @@ public class Order {
         double total = 0.0;
         for (Item item : cart) {
             System.out.println(item.getDescription());
-            System.out.println(); // spacing between items
+            System.out.println();
             total += item.getPrice();
         }
 

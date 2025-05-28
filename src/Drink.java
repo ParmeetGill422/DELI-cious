@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,7 +5,11 @@ public class Drink implements Item {
     private List<String> drinks = new ArrayList<>();
 
     public void addDrink(String drink) {
-        drinks.add(drink);
+        drinks.add(drink.trim());
+    }
+
+    public List<String> getDrinks() {
+        return drinks;
     }
 
     @Override
