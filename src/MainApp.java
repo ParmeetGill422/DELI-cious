@@ -29,6 +29,7 @@ public class MainApp {
         while (true) {
             System.out.println("\n--- Order Menu --- \n━◦○◦━◦○◦━◦○◦━◦○◦━");
             order.viewCart();
+            System.out.println("╔══════════╗");
             System.out.println("1) Add Sandwich");
             System.out.println("2) Add Drink");
             System.out.println("3) Add Chips");
@@ -36,6 +37,7 @@ public class MainApp {
             System.out.println("5) Add Signature Sandwich");
             System.out.println("6) Checkout");
             System.out.println("7) Cancel Order");
+            System.out.println("╚══════════╝");
             System.out.print("Select option: ");
             String input = scanner.nextLine().trim();
 
