@@ -75,7 +75,7 @@ public class Order {
             return;
         }
 
-        System.out.println(ConsoleColors.BOLD+"\n  💳 Checkout\n≿━━━━༺❀༻━━━━≾"+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN+"\n    💳 Checkout\n≿━━━━━━༺❀༻━━━━━━≾"+ConsoleColors.RESET);
         double total = 0.0;
         for (Item item : cart) {
             System.out.println(item.getDescription());
