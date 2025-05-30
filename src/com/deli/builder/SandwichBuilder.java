@@ -2,11 +2,20 @@ package com.deli.builder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 import com.deli.model.Item;
 import com.deli.model.Sandwich;
+import com.deli.util.ConsoleColors;
 
 public class SandwichBuilder {
+    public static void printColoredItems(List<String> list, String color) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("  %d) %s%s%s%n",
+                    i + 1,             // ← Integer, used with %d
+                    color,             // ← String, colored prefix
+                    list.get(i),       // ← the item text
+                    ConsoleColors.RESET);
+        }
+    }
 
     public static Item build(Scanner scanner) {
         List<String> sizes = Arrays.asList("4", "8", "12");
@@ -17,20 +26,20 @@ public class SandwichBuilder {
         List<String> sauces = Arrays.asList("Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette");
 
         System.out.println("Choose sandwich size:");
-        printOptions(sizes);
+        printColoredItems(sizes, ConsoleColors.BRIGHT_CYAN);;
         String size = sizes.get(getUserChoice(scanner, sizes.size()));
 
         System.out.println("Choose bread type:");
-        printOptions(breads);
+        printColoredItems(breads, ConsoleColors.BRIGHT_CYAN);
         String bread = breads.get(getUserChoice(scanner, breads.size()));
 
         Sandwich sandwich = new Sandwich(size, bread);
 
         System.out.println("Choose meats (enter numbers separated by commas):");
-        printOptions(meats);
+        printColoredItems(meats, ConsoleColors.BRIGHT_CYAN);
         for (int index : getMultipleChoices(scanner)) {
             String meat = meats.get(index);
-            if (askYesNo(scanner, "Add extra " + meat + "?")) {
+            if (askYesNo(scanner, "\nAdd extra " + meat + "?")) {
                 sandwich.addExtraMeat(meat);
             } else {
                 sandwich.addMeat(meat);
@@ -38,28 +47,28 @@ public class SandwichBuilder {
         }
 
         System.out.println("Choose cheeses (enter numbers separated by commas):");
-        printOptions(cheeses);
+        printColoredItems(cheeses, ConsoleColors.BRIGHT_CYAN);
         for (int index : getMultipleChoices(scanner)) {
             String cheese = cheeses.get(index);
-            if (askYesNo(scanner, "Add extra " + cheese + "?")) {
+            if (askYesNo(scanner, "\nAdd extra " + cheese + "?")) {
                 sandwich.addExtraCheese(cheese);
             } else {
                 sandwich.addCheese(cheese);
             }
         }
 
-        if (askYesNo(scanner, "Toasted?")) {
+        if (askYesNo(scanner, "\nToasted?")) {
             sandwich.setToasted(true);
         }
 
         System.out.println("Choose toppings (enter numbers separated by commas):");
-        printOptions(toppings);
+        printColoredItems(toppings, ConsoleColors.BRIGHT_CYAN);
         for (int index : getMultipleChoices(scanner)) {
             sandwich.addTopping(toppings.get(index));
         }
 
         System.out.println("Choose sauces (enter numbers separated by commas):");
-        printOptions(sauces);
+        printColoredItems(sauces, ConsoleColors.BRIGHT_CYAN);
         for (int index : getMultipleChoices(scanner)) {
             sandwich.addSauce(sauces.get(index));
         }
@@ -79,7 +88,7 @@ public class SandwichBuilder {
                 int choice = Integer.parseInt(scanner.nextLine().trim()) - 1;
                 if (choice >= 0 && choice < max) return choice;
             } catch (NumberFormatException ignored) {}
-            System.out.print("Invalid. Try again: ");
+            ConsoleColors.printColored("Invalid. Try again: ",ConsoleColors.RED);
         }
     }
 
@@ -92,7 +101,7 @@ public class SandwichBuilder {
                         .filter(i -> i >= 0)
                         .toList();
             } catch (Exception e) {
-                System.out.print("Invalid input. Try again (e.g., 1,3,5): ");
+                ConsoleColors.printColored("Invalid input. Try again (e.g., 1,3,5): ",ConsoleColors.RED);
             }
         }
     }

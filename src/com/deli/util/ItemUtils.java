@@ -10,5 +10,6 @@ public class ItemUtils {
         return counts.entrySet().stream()
                 .map(e -> e.getValue() > 1 ? e.getKey() + " x" + e.getValue() : e.getKey())
                 .collect(Collectors.joining(", "));
+
     }
 }

@@ -1,7 +1,7 @@
 package com.deli.app;
 import java.util.Scanner;
 import com.deli.builder.*;
-
+import com.deli.util.ConsoleColors;
 
 public class MainApp {
     public static void main(String[] args) {
@@ -11,37 +11,38 @@ public class MainApp {
         while (true) {
             System.out.println("\n*✲*´*。.❄¯*✲。❄。*¨`*✲´*  。*´✲*`¨*。❄。✲*¯❄.。*´*✲*\n" +
                     "    *╔════════════ ༺❀༻༺❀༻ ════════════╗*\n" +
-                    "               WELCOME TO THE DELI\n" +
+                    ConsoleColors.PURPLE+"               WELCOME TO THE DELI\n"+ ConsoleColors.RESET +
                     "    *╚════════════ ༺❀༻༺❀༻ ════════════╝*\n" +
                     "*✲*´*。.❄¯*✲。❄。*¨`*✲´*  。*´✲*`¨*。❄。✲*¯❄.。*´*✲*");
-            System.out.println("1)\uD83D\uDCF2 New Order");
-            System.out.println("2)\uD83D\uDC4B Exit");
+            System.out.println("1)"+ConsoleColors.PURPLE+"\uD83D\uDCF2 New Order"+ConsoleColors.RESET);
+            System.out.println("2)"+ConsoleColors.PURPLE+"\uD83D\uDC4B Exit"+ConsoleColors.RESET);
             System.out.print("Select option: ");
             String input = scanner.nextLine().trim();
 
             if (input.equals("1")) {
                 handleOrder(scanner, order);
             } else if (input.equals("2")) {
-                System.out.println("Goodbye!\nDon’t let the door hit you on the way out.");
+                System.out.println(ConsoleColors.BRIGHT_YELLOW+ConsoleColors.UNDERLINE+"Goodbye! Don’t let the door hit you on the way out."+ConsoleColors.RESET);
                 break;
             } else {
-                System.out.println("Invalid choice.");
+                System.out.println(ConsoleColors.RED+"Invalid selection."+ConsoleColors.RESET);
             }
         }
     }
 
+
     private static void handleOrder(Scanner scanner, Order order) {
         while (true) {
-            System.out.println("\n--- Order Menu --- \n━◦○◦━◦○◦━◦○◦━◦○◦━");
+            System.out.println(ConsoleColors.BLUE+"\n--- Order Menu --- \n━◦○◦━◦○◦━◦○◦━◦○◦━"+ConsoleColors.RESET);
             order.viewCart();
             System.out.println("╔════════════════╗");
-            System.out.println("1) Add Sandwich\uD83E\uDD6A");
-            System.out.println("2) Add Drink\uD83E\uDD64");
-            System.out.println("3) Add Chips\uD83C\uDF5F");
-            System.out.println("4) Add Sides\uD83C\uDF6F");
-            System.out.println("5) Add Signature Sandwich\uD83E\uDD6A");
-            System.out.println("6) Checkout\uD83D\uDECD\uFE0F");
-            System.out.println("7) Cancel Order");
+            ConsoleColors.printColored("1) Add Sandwich\uD83E\uDD6A",ConsoleColors.PURPLE);
+            ConsoleColors.printColored("2) Add Drink\uD83E\uDD64",ConsoleColors.PURPLE);
+            ConsoleColors.printColored("3) Add Chips\uD83C\uDF5F",ConsoleColors.PURPLE);
+            ConsoleColors.printColored("4) Add Sides\uD83C\uDF6F",ConsoleColors.PURPLE);
+            ConsoleColors.printColored("5) Add Signature Sandwich\uD83E\uDD6A",ConsoleColors.PURPLE);
+            ConsoleColors.printColored("6) Checkout\uD83D\uDECD\uFE0F",ConsoleColors.PURPLE);
+            ConsoleColors.printColored("7) Cancel Order",ConsoleColors.PURPLE);
             System.out.println("╚════════════════╝");
             System.out.print("Select option: ");
             String input = scanner.nextLine().trim();
@@ -57,10 +58,10 @@ public class MainApp {
                     return;
                 }
                 case "7" -> {
-                    System.out.println("Thank you for canceling — now we can focus on real customers.");
+                    System.out.println(ConsoleColors.UNDERLINE+ConsoleColors.BRIGHT_YELLOW+"\nThank you for canceling — now we can focus on real customers."+ConsoleColors.RESET);
                     return;
                 }
-                default -> System.out.println("Invalid selection.");
+                default -> System.out.println(ConsoleColors.RED+"Invalid selection."+ConsoleColors.RESET);
             }
         }
     }

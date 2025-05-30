@@ -1,11 +1,13 @@
 package com.deli.app;
 import com.deli.model.*;
+import com.deli.util.ConsoleColors;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+import java.io.File;
 
 public class Order {
     private List<Item> cart = new ArrayList<>();
@@ -46,7 +48,7 @@ public class Order {
     }
 
     public void viewCart() {
-        System.out.println("\n🛒 Current Cart\n┄┄┄┄┄┄┄┄┄┄┄┄┄┄");
+        System.out.println(ConsoleColors.CYAN+"\n🛒 Current Cart\n┄┄┄┄┄┄┄┄┄┄┄┄┄┄"+ ConsoleColors.RESET);
         if (cart.isEmpty()) {
             System.out.println("Your cart is empty.");
         } else {
@@ -73,7 +75,7 @@ public class Order {
             return;
         }
 
-        System.out.println("\n  💳 Checkout\n≿━━━━༺❀༻━━━━≾");
+        System.out.println(ConsoleColors.BOLD+"\n  💳 Checkout\n≿━━━━༺❀༻━━━━≾"+ConsoleColors.RESET);
         double total = 0.0;
         for (Item item : cart) {
             System.out.println(item.getDescription());
@@ -82,19 +84,25 @@ public class Order {
         }
 
         System.out.printf("Total:\uD83D\uDCB5 $%.2f%n", total);
-        System.out.print("Confirm order? (y/n): ");
+        System.out.print("\nConfirm order? (y/n): ");
         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
             saveReceipt();
-            System.out.println("✅ Order Confirmed. \uD83E\uDDFEReceipt saved. No backing out now");
+            System.out.println(ConsoleColors.GREEN +"\n✅ Order Confirmed. \uD83E\uDDFEReceipt saved."+ ConsoleColors.RESET);
             cart.clear();
         } else {
-            System.out.println("❌ Order cancelled.Go waste someone else’s time.");
+            System.out.println(ConsoleColors.RED +"\n❌ Order cancelled.Go waste someone else’s time."+ ConsoleColors.RESET);
         }
     }
 
     private void saveReceipt() {
         String timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
         String filename = "receipts/" + timestamp + ".txt";
+
+        // Ensure the receipts directory exists
+        File directory = new File("receipts");
+        if (!directory.exists()) {
+            directory.mkdirs();  // Create the directory if it doesn't exist
+        }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (Item item : cart) {

@@ -13,7 +13,6 @@ public class Side implements Item {
     public List<String> getSideItems() {
         return sideItems;
     }
-
     @Override
     public double getPrice() {
         return 0;

@@ -5,7 +5,6 @@ import com.deli.util.ItemUtils;
 
 public class Chips implements Item {
     private List<String> flavors = new ArrayList<>();
-
     public void addFlavor(String flavor) {
         flavors.add(flavor.trim());
     }

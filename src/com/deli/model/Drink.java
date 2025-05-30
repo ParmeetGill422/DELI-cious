@@ -24,7 +24,6 @@ public class Drink implements Item {
         }
         return total;
     }
-
     @Override
     public String getDescription() {
         return "\uD83E\uDD64Drinks: " + ItemUtils.formatWithCounts(drinks);

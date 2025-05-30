@@ -18,7 +18,6 @@ public class Sandwich implements Item {
         this.size = size;
         this.bread = bread;
     }
-
     public void addMeat(String meat) {
         meats.add(meat);
     }
@@ -91,7 +90,6 @@ public class Sandwich implements Item {
 
         return sb.toString();
     }
-
     public String getSummaryDescription() {
         int totalMeats = meats.size() + extraMeats.size();
         int totalCheeses = cheeses.size() + extraCheeses.size();

@@ -1,14 +1,13 @@
 package com.deli.builder;
 import java.util.Scanner;
-
 import com.deli.model.Item;
 import com.deli.model.Sandwich;
+import com.deli.util.ConsoleColors;
 
 public class SignatureSandwichBuilder {
     public static Item build(Scanner scanner) {
         String[] options = {"BLT", "Philly Cheese Steak"};
         String choice = askOption(scanner, "Choose a signature sandwich:", options);
-
         if (choice.equals("BLT")) {
             Sandwich blt = new Sandwich("8", "White");
             blt.addMeat("Bacon");
@@ -27,15 +26,13 @@ public class SignatureSandwichBuilder {
             philly.setToasted(true);
             return philly;
         }
-
         return null;
     }
-
     private static String askOption(Scanner scanner, String prompt, String[] options) {
         while (true) {
             System.out.println(prompt);
             for (int i = 0; i < options.length; i++) {
-                System.out.println((i + 1) + ") " + options[i]);
+                System.out.println((i + 1) + ") "+ConsoleColors.CYAN + options[i]+ConsoleColors.RESET);
             }
             System.out.print("Select: ");
             try {
@@ -44,7 +41,7 @@ public class SignatureSandwichBuilder {
                     return options[choice - 1];
                 }
             } catch (NumberFormatException ignored) {}
-            System.out.println("Invalid choice. Try again.");
+            ConsoleColors.printColored("Invalid choice. Try again.",ConsoleColors.RED);
         }
     }
 }
