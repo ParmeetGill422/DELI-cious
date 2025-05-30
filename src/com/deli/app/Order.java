@@ -98,7 +98,7 @@ public class Order {
         String timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
         String filename = "receipts/" + timestamp + ".txt";
 
-        // Ensure the receipts directory exists
+
         File directory = new File("receipts");
         if (!directory.exists()) {
             directory.mkdirs();  // Create the directory if it doesn't exist
