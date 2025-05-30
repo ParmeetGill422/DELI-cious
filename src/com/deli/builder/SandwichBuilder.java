@@ -10,9 +10,9 @@ public class SandwichBuilder {
     public static void printColoredItems(List<String> list, String color) {
         for (int i = 0; i < list.size(); i++) {
             System.out.printf("  %d) %s%s%s%n",
-                    i + 1,             // ← Integer, used with %d
-                    color,             // ← String, colored prefix
-                    list.get(i),       // ← the item text
+                    i + 1,
+                    color,
+                    list.get(i),
                     ConsoleColors.RESET);
         }
     }
