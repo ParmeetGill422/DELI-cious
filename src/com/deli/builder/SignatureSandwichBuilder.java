@@ -1,5 +1,7 @@
 package com.deli.builder;
 import java.util.Scanner;
+
+import com.deli.model.Item;
 import com.deli.model.Sandwich;
 
 public class SignatureSandwichBuilder {

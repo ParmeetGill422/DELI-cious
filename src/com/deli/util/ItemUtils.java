@@ -2,7 +2,6 @@ package com.deli.util;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import com.deli.model.*;
 
 public class ItemUtils {
     public static String formatWithCounts(List<String> items) {

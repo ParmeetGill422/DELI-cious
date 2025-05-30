@@ -1,6 +1,7 @@
 package com.deli.builder;
 import java.util.Scanner;
 import com.deli.model.Chips;
+import com.deli.model.Item;
 
 public class ChipsBuilder {
     public static Item build(Scanner scanner) {

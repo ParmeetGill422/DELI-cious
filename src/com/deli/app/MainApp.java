@@ -1,9 +1,7 @@
 package com.deli.app;
 import java.util.Scanner;
-import com.deli.app.Order;
 import com.deli.builder.*;
-import com.deli.model.*;
-import com.deli.util.ItemUtils;
+
 
 public class MainApp {
     public static void main(String[] args) {
